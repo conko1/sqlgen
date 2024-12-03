@@ -1,3 +1,4 @@
+import copy
 import random
 
 from entities.recept_medicine import RecipeMedicine
@@ -14,11 +15,13 @@ class RecipeMedicineGenerator(BaseGenerator):
         generated_inserts = []
 
         for recipe in self.recipe:
+            medicine_copy = copy.deepcopy(self.medicine)
             medicine_count = random.randint(1, 3)
 
             for _ in range(medicine_count):
-                medicine_index = random.randint(0, len(self.medicine) - 1)
-                medicine = self.medicine[medicine_index]
+                medicine_index = random.randint(0, len(medicine_copy) - 1)
+                medicine = medicine_copy[medicine_index]
+                medicine_copy.pop(medicine_index)
 
                 recipe_medicine = RecipeMedicine()
 
